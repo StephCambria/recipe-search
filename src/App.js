@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 function App() {
   const APP_ID = "963a15a3";
@@ -31,42 +35,41 @@ function App() {
   };
 
   return (
-    <div>
-      <form class="text-gray-400 bg-gray-900 body-font" onSubmit={getSearch}>
-        <div class="container py-10 mx-auto">
-          <div class="flex lg:w-1/2 w-full sm:flex-row flex-col mx-auto px-8 sm:px-0 items-end sm:space-x-4 sm:space-y-0 space-y-4">
-            <div class="relative sm:mb-0 flex-grow w-full">
-              <label for="full-name" class="leading-7 text-sm text-gray-400">
-                Search Recipe
-              </label>
-              <input
+    <Container
+      style={{ width: "100vh", margin: "0", padding: "0" }}
+    >
+      <Container style={{width: "90%", padding: "4rem", marginLeft: "50vh"}} >
+        <Form style={{display: "flex"}} onSubmit={getSearch}>
+              <Form.Control
                 type="text"
                 id="full-name"
                 name="full-name"
+                placeholder="Search for a recipe!"
                 value={search}
                 onChange={updateSearch}
-                class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
+              <Container>
+              <Button
+                type="submit"
+                class="border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+              >
+                Search
+              </Button>
+              </Container>
+        </Form>
+      </Container>
+      <Container>
+        <section class="text-gray-600 body-font">
+          <div class="container">
+            <div class="flex flex-wrap -m-4 w-4/5 mx-auto">
+              {recipes.map((recipe) => (
+                <Recipe key={recipe.recipe.label} recipe={recipe.recipe} />
+              ))}
             </div>
-            <button
-              type="submit"
-              class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-            >
-              Search
-            </button>
           </div>
-        </div>
-      </form>
-      <section class="text-gray-600 body-font">
-        <div class="container px-5 py-24">
-          <div class="flex flex-wrap -m-4 w-4/5 mx-auto">
-            {recipes.map((recipe) => (
-              <Recipe key={recipe.recipe.label} recipe={recipe.recipe} />
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </Container>
+    </Container>
   );
 }
 
